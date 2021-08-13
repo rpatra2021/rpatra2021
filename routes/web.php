@@ -11,6 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', function () { return view('welcome'); });
+
+/** Those routes only for the developer user */
+Route::group(['namespace' => 'Developer', 'prefix' => DEVELOPER_PREFIX], function () {
+    Route::any('file-upload', 'TestController@fileUpload');
 });
