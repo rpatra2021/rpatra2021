@@ -4,22 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SalesEstimate extends Model
+class SalesOrders extends Model
 {
-    protected $table = "tbl_sales_estimates";
-
+    protected $table = "tbl_sales_orders";
     protected $fillable = [
         /** All string */
-        "estimate_number", "receiver_code", "receiver_name",
+        "order_number", "receiver_code", "receiver_name",
 
-        /** estimate_date, expected_ordering_date, expected_delivery_date => date; edited_version => integer length 8  */
-        "estimate_date", "expected_ordering_date", "expected_delivery_date", "edited_version",
+        /** order_date,expected_delivery_date => date, edited_version => integer length 8, receiver_purchase_order_number=>string */
+        "order_date", "expected_delivery_date", "edited_version", "receiver_purchase_order_number",
 
         /** All string except status => tinyint */
         "sales_person", "created_by", "status", "location",
 
         /** All string except expiry => date*/
-        "receiver_type", "receiver_group", "expiry",
+        "receiver_type", "receiver_group", "estimate_reference" ,"expiry",
 
         /** All string for Billing Address */
         "bill_address1", "bill_address2", "bill_postal_code", "bill_city", "bill_state", "bill_country", "bill_gstin", "bill_pan", 
@@ -35,16 +34,17 @@ class SalesEstimate extends Model
         /** subtotal_ex_tax, total_ex_tax, inv_discount_amount, total_inc_tax => float 10,2, inv_discount_present, cgst, sgst => integer length 8,  */
         "subtotal_ex_tax", "total_ex_tax", "inv_discount_amount", "inv_discount_present", "cgst", "sgst", "total_inc_tax",
 
-        /** currency,payment_terms,schedule =>string,  expected_inv_date,payment_discount_date => date, payment_mode => enum(online/cash), 
+        /** currency,payment_terms,schedule =>string,  expected_inv_date,payment_discount_date,payment_due_date,due_date1,due_date2 => date, 
+         * payment_mode => enum(online/cash), 
          * payment_discount_percent,pre_payment_percent => integer length 8, attachment_id => integer, 
         */
-        "currency", "expected_inv_date", "payment_terms", "payment_mode", "payment_discount_percent", "payment_discount_date", 
-        "attachment_id", "pre_payment_percent", "schedule"
+        "currency", "expected_inv_date", "payment_terms", "payment_mode", "payment_discount_percent", "payment_discount_date", "payment_due_date",
+        "attachment_id", "pre_payment_percent", "schedule", "due_date1", "due_date2"
     ];
 
-    public function sales_estimate_items()
+    public function sales_order_items()
     {
-        return $this->hasMany('App\Models\EstimateItems', 'sales_estimate_id', 'id');
+        return $this->hasMany('App\Models\SalesOrderItems', 'sales_order_id', 'id');
     }
 
     public function attachment_data()

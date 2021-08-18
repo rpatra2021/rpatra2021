@@ -24,13 +24,6 @@
         <a class="scrollup" style="display: none;">Scroll</a>
         <!--Start Javascript links-->
         @include('layouts.script_links')
-        <script>
-            window.setTimeout(function () {
-				$(".alert-success").fadeTo(500, 0).slideUp(500, function () {
-					$(this).remove();
-				});
-			}, 3000);
-        </script>
         @yield('customScript')
     </body>
 </html>

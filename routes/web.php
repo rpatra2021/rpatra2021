@@ -13,6 +13,15 @@
 
 Route::get('/', function () { return view('welcome'); });
 
+/** Websites routes started here */
+Route::group(['namespace' => 'Web'], function () {
+    Route::get('sales-estimate-save/{id?}', 'SalesEstimateController@saveSalesEstimateData');
+    Route::post('sales-estimate-save/{id?}', 'SalesEstimateController@saveSalesEstimateData');
+
+    Route::get('sales-order-save/{id?}', 'SalesOrderController@salesOrderDataSave');
+    Route::post('sales-order-save/{id?}', 'SalesOrderController@salesOrderDataSave');
+});
+
 /** Those routes only for the developer user */
 Route::group(['namespace' => 'Developer', 'prefix' => DEVELOPER_PREFIX], function () {
     Route::any('file-upload', 'TestController@fileUpload');

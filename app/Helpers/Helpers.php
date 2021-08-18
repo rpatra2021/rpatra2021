@@ -42,4 +42,11 @@ if (! function_exists('save_attachment_files')) {
     }
 } //used
 
+if (! function_exists('generate_unique_id')) {
+    function generate_unique_id()
+    {
+        return time().rand(000000,999999);
+    }
+} //used
+
 
